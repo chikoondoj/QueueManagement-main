@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState,useRef } from 'react'
 import './Detail.css'
 import Navbar from '../../Layout/Navbar/Navbar'
 import { useForm } from 'react-hook-form'
@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom'
 import AuthService from '../../../services/API'
 import { setLoader, UnsetLoader } from '../../../redux/actions/LoaderActions'
 const Details = () => {
-    const { register, handleSubmit, formState: { errors }, reset } = useForm({
+    const { register, handleSubmit, formState: { errors }, reset, } = useForm({
         mode: "onTouched"
     });
     const dispatch = useDispatch();
@@ -60,7 +60,7 @@ const Details = () => {
     const [preview, setPreview] = useState(photo3);
     const imageHandler = (e) => {
         setFieldValue(e.target.files[0]);
-        const reader = new FileReader;
+        const reader = new FileReader();
         reader.onload = () => {
             if (reader.readyState === 2) {
                 setPreview(reader.result);

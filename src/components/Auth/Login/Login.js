@@ -1,53 +1,55 @@
-import React, { useState, useEffect } from 'react'
-import Navbar from '../../Layout/Navbar/Navbar'
-import { useForm } from 'react-hook-form'
-import image from '../../Assets/pic.svg'
-import {useNavigate} from 'react-router-dom'
-import './Login.css'
-import AuthService from '../../../services/API'
-import { useDispatch } from 'react-redux'
-import { setLoader, UnsetLoader } from '../../../redux/actions/LoaderActions'
+import React, { useState } from 'react';
+import Navbar from '../../Layout/Navbar/Navbar';
+import { useForm } from 'react-hook-form';
+import image from '../../Assets/pic.svg';
+import { useNavigate } from 'react-router-dom';
+import './Login.css';
+import AuthService from '../../../services/API';
+import { useDispatch } from 'react-redux';
+import { setLoader, UnsetLoader } from '../../../redux/actions/LoaderActions';
+
 const Login = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
         mode: "onTouched"
     });
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [errorMessage, setErrorMessage] = useState('');
+    const [toggle, setToggle] = useState(false);
+
     const onSubmit = (data, e) => {
-        dispatch(setLoader())
+        dispatch(setLoader());
         e.preventDefault();
         let obj = {
-            "email":data.email,
-            "password":data.password,
+            "email": data.email,
+            "password": data.password,
             "isStore": data.aopt === "store" ? false : true
-        }
+        };
         AuthService.Login(obj)
-        .then((res)=>{
-            dispatch(UnsetLoader())
+            .then((res) => {
+                dispatch(UnsetLoader());
+                if (res) {
+                    localStorage.setItem("access", res.data.access_token);
+                    localStorage.setItem("refresh", res.data.refresh_token);
+                    localStorage.setItem("userid", res.data._id);
 
-            console.log(res);
-            if(res){
-                localStorage.setItem("access",res.data.access_token);
-                localStorage.setItem("access",res.data.refresh_token);
-                localStorage.setItem("userid",res.data._id);
-
-                // navigate("/");
-                // console.log(obj);
-                !obj.isStore?navigate("/create-store"):navigate("/")
-            }
-        }).catch((e)=>{
-            dispatch(UnsetLoader())
-
-            console.log(e);
-        })
+                    !obj.isStore ? navigate("/create-store") : navigate("/");
+                }
+            }).catch((e) => {
+                dispatch(UnsetLoader());
+                setErrorMessage('Please enter the correct email address or password.');
+                console.log(e);
+            });
     }
-    const handleClick = () =>{
+
+    const handleClick = () => {
         navigate("/forgot");
     }
-    const handleClicked = () =>{
+
+    const handleClicked = () => {
         navigate("/signup");
     }
-    const [toggle, setToggle] = useState(false);
+
     return (
         <div className='Signup-Page'>
             <div className='Navbar-Signup'>
@@ -68,9 +70,8 @@ const Login = () => {
                                     value="customer"
                                     id="field-customer"
                                 />
-                                Customer
+                                customer
                             </label>
-
                         </div>
                         <div className='store-radio'>
                             <label className='label-data' htmlFor="field-store">
@@ -94,14 +95,15 @@ const Login = () => {
                     </div>
                     <div className='form-container'>
                         <div className='passwords'>
-                            <i id="passlock" class="fa fa-eye" aria-hidden="true"></i>
+                            <i id="passlock" className="fa fa-eye" aria-hidden="true"></i>
                             {
-                                toggle ? <i id='passlock' class="fa fa-eye-slash" aria-hidden="true" onClick={() => { setToggle(!toggle) }}></i> : <i id="passlock" class="fa fa-eye" aria-hidden="true" onClick={() => { setToggle(!toggle) }}></i>
+                                toggle ? <i id='passlock' className="fa fa-eye-slash" aria-hidden="true" onClick={() => { setToggle(!toggle) }}></i> : <i id="passlock" className="fa fa-eye" aria-hidden="true" onClick={() => { setToggle(!toggle) }}></i>
                             }
                             <input className='input-field' type={toggle ? "text" : "password"} placeholder='Enter Password' name="password" {...register("password", { required: "password is required", minLength: { value: 8, message: "Password must be more than 8 characters" }, maxLength: { value: 14, message: "Password cannot exceed more than 14 characters" } })}></input>
                             <p className='alerts'>{errors.password?.message}</p>
                         </div>
                     </div>
+                    {errorMessage && <p className='alerts'>{errorMessage}</p>}
                     <p className='forgot' onClick={handleClick}><u>Forgot password ?</u></p>
                     <button className='signup-btn' type='submit'>Login</button>
                     <p className='signup-head'>Create New Account <span onClick={handleClicked}>Signup</span></p>
@@ -111,7 +113,7 @@ const Login = () => {
                 <img className="pic" src={image} alt="logo" />
             </div>
         </div>
-    )
+    );
 }
 
-export default Login
+export default Login;

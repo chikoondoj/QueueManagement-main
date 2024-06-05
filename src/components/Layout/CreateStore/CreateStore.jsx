@@ -113,6 +113,8 @@ const CreateStore = () => {
                 <select class="form-select" aria-label="Default select example" style={{width:"80%",marginLeft:"8%",borderColor:"#192839",borderWidth:"2px",padding:"6px 10px",borderRadius:"10px",fontSize:"16px"}}>
                     <option selected>Store type</option>
                     <option value="1">General store</option>
+                    <option value="2">liquor store</option>
+                    <option value="3">Bottle store</option>
                 </select>
                 <br/>
                 <img src={img1} alt="counters" style={{width:"7%", position:"relative", top:"10px"}}></img><input placeholder="Number of counters" value={ctr} onChange={(e)=>{setCtr(e.target.value)}}></input>
