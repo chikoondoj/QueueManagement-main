@@ -64,5 +64,6 @@ Here are the changes made to the CSS to enhance the professional and aesthetic a
    
  7. **validation**
    - The validation logic in the code might had additional rules that were not met by the provided numbers, we had to  Review the validation code to understand what rules were applied and to  ensure the input meets those rules..
-**before   - ![Screenshot (11)](https://github.com/chikoondoj/QueueManagement-main/assets/171292021/d63d8f7c-17c9-4efa-ab09-7539dab3dff4)
- b
+**before**
+   - ![Screenshot (11)](https://github.com/chikoondoj/QueueManagement-main/assets/171292021/d63d8f7c-17c9-4efa-ab09-7539dab3dff4)
+ 
