@@ -62,6 +62,7 @@ Here are the changes made to the CSS to enhance the professional and aesthetic a
    -Adding ligher colours to the backgroung allows the shop or Class "card" to be the main view with its darker colours.
    <img width="926" alt="homepage colour changes" src="https://github.com/chikoondoj/QueueManagement-main/assets/170455389/91f42120-dc7d-4758-9a4a-cd5a64ffa65e">
    
-   **validation**
-   - The validation logic in the code might have additional rules that are not met by the provided number.
-   
+ 7. **validation**
+   - The validation logic in the code might h![Screenshot (11)](https://github.com/chikoondoj/QueueManagement-main/assets/171292021/d63d8f7c-17c9-4efa-ab09-7539dab3dff4)
+ad additional rules that were not met by the provided numbers, we had to  Review the validation code to understand what rules were applied and to  ensure the input meets those rules..
+ 
